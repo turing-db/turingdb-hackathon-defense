@@ -4,8 +4,9 @@
 
 A ready-to-run pack of **graph datasets for the EDTH hackathon**, built on
 [**TuringDB**](https://turing.bio). Clone this repo, point a TuringDB server at it, and you
-have four domain graphs — supply chain, logistics risk, drone-swarm telemetry, and global
-power infrastructure — loadable and queryable in seconds, plus a browser visualizer.
+have six domain graphs — supply chain, logistics risk, drone-swarm telemetry, global power
+infrastructure, cybersecurity attacks, and POLE crime investigation — loadable and queryable
+in seconds, plus a browser visualizer.
 
 No data wrangling required: the graphs are **pre-built** and committed under [`graphs/`](graphs/).
 Per-dataset documentation (schema, example queries, licensing) lives in [`docs/`](docs/).
@@ -47,6 +48,8 @@ which is exactly what this repo ships.
 | `logistics_risk` | Supply-chain **risk** & performance indicators (shipments, suppliers, countries, risk class) | 117,718 | 233,242 | [docs/logistics_risk.md](docs/logistics_risk.md) |
 | `drone_swarm` | Drone-swarm coordination telemetry (positions, battery, formation, mission, trajectories) | 21,028 | 99,980 | [docs/drone_swarm.md](docs/drone_swarm.md) |
 | `power_plants` | Global power infrastructure (plants, fuels, owners, countries) | 45,262 | 93,052 | [docs/power_plants.md](docs/power_plants.md) |
+| `cyber_attacks` | Network intrusion / threat detection (attack events, protocols, severity, geo) | 48,741 | 280,000 | [docs/cyber_attacks.md](docs/cyber_attacks.md) |
+| `poledb` | POLE crime investigation (people, associates, crimes, officers, vehicles, phone calls, locations) | 61,521 | 105,840 | [docs/poledb.md](docs/poledb.md) |
 
 ---
 
@@ -63,6 +66,12 @@ These graphs are picked for **defense, resilience, and intelligence** scenarios:
 - **Autonomous-systems / ISR** (`drone_swarm`) — reconstruct each drone's trajectory over
   time, correlate collision warnings with formation and mission, and snapshot the full swarm
   state at any instant.
+- **Cyber threat detection** (`cyber_attacks`) — triage attack events by type and severity,
+  see what each control caught vs. ignored, profile protocols and traffic, and find
+  geographic attack hotspots.
+- **Criminal-network / investigation analysis** (`poledb`) — map associates through `KNOWS`
+  and family links, trace crimes to their location, investigating officer, suspects and
+  vehicles, and reconstruct phone-call patterns across a person's contacts.
 
 Each dataset's doc lists concrete starter queries.
 
@@ -173,12 +182,16 @@ turingdb-hackathon-defense/
 │   ├── supply_chain/
 │   ├── logistics_risk/
 │   ├── drone_swarm/
-│   └── power_plants/
+│   ├── power_plants/
+│   ├── cyber_attacks/
+│   └── poledb/
 ├── docs/                ← per-dataset schema, queries, and licensing
 │   ├── supply_chain.md
 │   ├── logistics_risk.md
 │   ├── drone_swarm.md
-│   └── power_plants.md
+│   ├── power_plants.md
+│   ├── cyber_attacks.md
+│   └── poledb.md
 └── skills/              ← TuringDB Claude Code skills (/turingdb)
     └── turingdb/
 ```
@@ -196,6 +209,8 @@ doc. Summary:
 | `logistics_risk` | Apache-2.0 |
 | `drone_swarm` | CC BY 4.0 |
 | `power_plants` | CC BY 4.0 (WRI Global Power Plant Database) |
+| `cyber_attacks` | Apache-2.0 |
+| `poledb` | OGL v3.0 (UK open police data; synthetic personal entities) |
 
 When redistributing, retain the relevant attribution/notice and indicate that the data was
 converted into a TuringDB graph.
