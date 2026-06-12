@@ -1,6 +1,6 @@
-# TuringDB Hackathon — Defense Graph Datasets
+# TuringDB × EDTH Hackathon — Ready-to-Use Datasets & Use Cases
 
-A ready-to-run pack of **graph datasets for the defense / resilience hackathon**, built on
+A ready-to-run pack of **graph datasets for the EDTH hackathon**, built on
 [**TuringDB**](https://turing.bio). Clone this repo, point a TuringDB server at it, and you
 have four domain graphs — supply chain, logistics risk, drone-swarm telemetry, and global
 power infrastructure — loadable and queryable in seconds, plus a browser visualizer.
@@ -12,20 +12,39 @@ Per-dataset documentation (schema, example queries, licensing) lives in [`docs/`
 
 ## What is TuringDB?
 
-TuringDB is a **columnar graph database** with **git-like versioning**. In one sentence: it
-stores graphs the way a modern analytics engine stores tables (columnar, vectorized) while
-letting you traverse them like a graph and branch/commit them like a git repo.
+TuringDB is a **high-performance, in-memory, column-oriented graph database engine** designed
+for analytical and read-intensive workloads. Built from scratch in C++, it delivers
+**millisecond query latency on graphs with millions of nodes and edges** — commonly **~200×
+faster than Neo4j** on deep multi-hop queries.
 
-Key properties that matter for this hackathon:
+### Key features
 
-- **Cypher query language** — a familiar `MATCH (a)-[:REL]->(b) RETURN ...` dialect (with a
-  few limitations noted under [Query gotchas](#query-gotchas)).
-- **Python SDK** — `query()` returns a **pandas DataFrame**, so you go from graph traversal
-  to analytics/plotting/ML features in one line.
-- **HTTP server + browser visualizer** — the server speaks HTTP on `:6666`; an interactive
-  graph visualizer runs on `:8080`.
-- **Git-like graphs** — each graph is a self-contained, versioned store (commits, dataparts)
-  under `graphs/<name>/`, which is exactly what this repo ships.
+**Performance-first architecture**
+- 0.1–50 ms query latency for analytical queries on 10M+ node graphs
+- Column-oriented architecture with streaming query processing — nodes and edges are
+  processed in chunks for efficiency
+- In-memory graph storage with efficient memory representations
+
+**Zero-lock concurrency**
+- Reads and writes never compete — analytical queries run without locking from writes
+- Massive parallelism for dashboards, AI pipelines, and batch processing
+- Each transaction executes on its own immutable snapshot, guaranteeing snapshot isolation
+
+**The first git-like versioning system for graphs**
+- Create and commit graph versions, maintain branches, merge changes, and time-travel
+  through history
+- Perfect for reproducibility, auditability, and regulatory compliance
+- Immutable snapshots ensure data integrity
+
+**Developer friendly**
+- OpenCypher query language
+- Python SDK with a comprehensive API — `query()` returns a **pandas DataFrame**, so you go
+  from graph traversal to analytics/plotting/ML features in one line
+- HTTP server + browser visualizer — the server speaks HTTP on `:6666`; an interactive graph
+  visualizer runs on `:8080`
+
+Each graph is a self-contained, versioned store (commits, dataparts) under `graphs/<name>/` —
+which is exactly what this repo ships.
 
 ---
 
