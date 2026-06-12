@@ -1,0 +1,8 @@
+# TuringDB runtime artifacts (regenerated on server start)
+data/
+logs/
+extensions/
+vector/
+*.lock
+*.sock
+.DS_Store

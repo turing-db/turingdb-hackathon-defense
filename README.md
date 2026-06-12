@@ -1,0 +1,173 @@
+# TuringDB Hackathon — Defense Graph Datasets
+
+A ready-to-run pack of **graph datasets for the defense / resilience hackathon**, built on
+[**TuringDB**](https://turing.bio). Clone this repo, point a TuringDB server at it, and you
+have four domain graphs — supply chain, logistics risk, drone-swarm telemetry, and global
+power infrastructure — loadable and queryable in seconds, plus a browser visualizer.
+
+No data wrangling required: the graphs are **pre-built** and committed under [`graphs/`](graphs/).
+Per-dataset documentation (schema, example queries, licensing) lives in [`docs/`](docs/).
+
+---
+
+## What is TuringDB?
+
+TuringDB is a **columnar graph database** with **git-like versioning**. In one sentence: it
+stores graphs the way a modern analytics engine stores tables (columnar, vectorized) while
+letting you traverse them like a graph and branch/commit them like a git repo.
+
+Key properties that matter for this hackathon:
+
+- **Cypher query language** — a familiar `MATCH (a)-[:REL]->(b) RETURN ...` dialect (with a
+  few limitations noted under [Query gotchas](#query-gotchas)).
+- **Python SDK** — `query()` returns a **pandas DataFrame**, so you go from graph traversal
+  to analytics/plotting/ML features in one line.
+- **HTTP server + browser visualizer** — the server speaks HTTP on `:6666`; an interactive
+  graph visualizer runs on `:8080`.
+- **Git-like graphs** — each graph is a self-contained, versioned store (commits, dataparts)
+  under `graphs/<name>/`, which is exactly what this repo ships.
+
+---
+
+## Prerequisites
+
+1. **TuringDB server** — the `turingdb` CLI on your `PATH`.
+2. **Python SDK** (for querying):
+   ```bash
+   pip install turingdb pandas
+   ```
+
+---
+
+## Quick start
+
+### 1. Start the server pointed at this repo
+
+The repo root **is** a TuringDB "turing-dir" (it contains a `graphs/` store). Start the
+server against it, with the visualizer enabled:
+
+```bash
+git clone https://github.com/turing-db/turingdb-hackathon-defense.git
+cd turingdb-hackathon-defense
+
+turingdb start -turing-dir "$(pwd)" -ui -ui-port 8080
+```
+
+- **`:6666`** — database (HTTP API used by the SDK)
+- **`:8080`** — open <http://localhost:8080> for the interactive visualizer
+
+> The server recreates its runtime dirs (`data/`, `logs/`, lock/socket) on first start — those
+> are git-ignored. Only the `graphs/` store is versioned here.
+
+### 2. Query from Python
+
+```python
+from turingdb import TuringDB
+
+c = TuringDB("json", host="http://localhost:6666")
+
+# pick a graph (see the catalog below)
+c.load_graph("power_plants")
+c.set_graph("power_plants")
+
+# results come back as a pandas DataFrame
+df = c.query("""
+  MATCH (p:PowerPlant)-[:LOCATED_IN]->(co:Country {country_code:'USA'}),
+        (p)-[:PRIMARY_FUEL]->(f:Fuel)
+  RETURN p.name, f.name AS fuel, p.capacity_mw
+  LIMIT 20
+""")
+print(df)
+```
+
+### 3. Explore in the visualizer
+
+Open <http://localhost:8080>, choose a graph, and run the default
+`MATCH (n) RETURN n LIMIT 100` to see a slice — then click nodes to expand neighbours.
+
+---
+
+## Dataset catalog
+
+| Graph | Domain | Nodes | Edges | Docs |
+|---|---|--:|--:|---|
+| `supply_chain` | Aerospace / defense supply chain (parts, suppliers, POs, quality incidents) | 30,380 | 90,402 | [docs/supply_chain.md](docs/supply_chain.md) |
+| `logistics_risk` | Supply-chain **risk** & performance indicators (shipments, suppliers, countries, risk class) | 117,718 | 233,242 | [docs/logistics_risk.md](docs/logistics_risk.md) |
+| `drone_swarm` | Drone-swarm coordination telemetry (positions, battery, formation, mission, trajectories) | 21,028 | 99,980 | [docs/drone_swarm.md](docs/drone_swarm.md) |
+| `power_plants` | Global power infrastructure (plants, fuels, owners, countries) | 45,262 | 93,052 | [docs/power_plants.md](docs/power_plants.md) |
+
+---
+
+## Example use cases
+
+These graphs are picked for **defense, resilience, and intelligence** scenarios:
+
+- **Supply-chain resilience** (`supply_chain`, `logistics_risk`) — trace a delayed purchase
+  order or a quality defect back through the part to every affected site; find where high-risk
+  shipments concentrate by supplier, product, and country; quantify supplier reliability
+  (on-time-in-full) and single-source risk.
+- **Critical-infrastructure mapping** (`power_plants`) — map generation capacity by country
+  and fuel; identify ownership concentration and fuel-dependency for energy-security analysis.
+- **Autonomous-systems / ISR** (`drone_swarm`) — reconstruct each drone's trajectory over
+  time, correlate collision warnings with formation and mission, and snapshot the full swarm
+  state at any instant.
+
+Each dataset's doc lists concrete starter queries.
+
+---
+
+## Query gotchas
+
+TuringDB's Cypher dialect is powerful but has a few limits worth knowing up front (they apply
+across all graphs here):
+
+- **Count edges with the arrow** — `MATCH ()-[r]->() RETURN count(r)`. The undirected form
+  `()-[r]-()` traverses each edge from both ends and **double-counts**.
+- **No `WITH` / no grouped aggregation (yet).** `RETURN co.name, count(s)` does **not** group
+  by `co.name` — `count()` returns one global total repeated on every row. Pull the rows and
+  aggregate in pandas instead:
+  ```python
+  df = c.query("MATCH (s:Shipment)-[:CLASSIFIED_AS]->(r:RiskClassification) RETURN r.name AS risk")
+  df["risk"].value_counts()
+  ```
+- **No `ORDER BY count(...)`.** Sort the resulting DataFrame in pandas (`.sort_values(...)`).
+- **Always `set_graph(...)`** before querying, or you'll hit the empty `default` graph.
+- **`name` display property** — every node carries a human-readable `name` used as its caption
+  in the visualizer.
+
+---
+
+## Repo layout
+
+```
+turingdb-hackathon-defense/
+├── README.md            ← you are here
+├── graphs/              ← prebuilt, versioned TuringDB graph store (point -turing-dir here)
+│   ├── default/         ← empty default graph (needed for a clean server start)
+│   ├── supply_chain/
+│   ├── logistics_risk/
+│   ├── drone_swarm/
+│   └── power_plants/
+└── docs/                ← per-dataset schema, queries, and licensing
+    ├── supply_chain.md
+    ├── logistics_risk.md
+    ├── drone_swarm.md
+    └── power_plants.md
+```
+
+---
+
+## Licensing
+
+Each dataset retains its **original source license** — see the "License" section in each
+doc. Summary:
+
+| Graph | Source license |
+|---|---|
+| `supply_chain` | MIT (synthetic data) |
+| `logistics_risk` | Apache-2.0 |
+| `drone_swarm` | CC BY 4.0 |
+| `power_plants` | CC BY 4.0 (WRI Global Power Plant Database) |
+
+When redistributing, retain the relevant attribution/notice and indicate that the data was
+converted into a TuringDB graph.
