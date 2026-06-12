@@ -101,11 +101,6 @@ df["formation"].value_counts()
 ## License
 
 Source dataset licensed under **[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)**.
-
-- **Hackathon use: ✅ allowed** — including commercial use and modification.
-- **Requirement (attribution):** you must give appropriate credit to the original dataset
-  author, provide a link to the CC BY 4.0 license, and **indicate if changes were made** —
-  here, the CSV was transformed into a TuringDB graph. No additional restrictions may be
-  imposed.
+Give appropriate credit, link the license, and indicate if changes were made.
 
 *Source data is synthetic, generated for coordination/telemetry analysis.*

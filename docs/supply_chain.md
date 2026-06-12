@@ -91,9 +91,6 @@ df["supplier"].value_counts()
 ## License
 
 Source dataset licensed under the **[MIT License](https://opensource.org/license/mit)**.
-
-- **Hackathon use: ✅ allowed** — including commercial use, modification, and redistribution.
-- **Requirement:** retain the original copyright notice and the MIT permission notice in any
-  copy or substantial portion of the data. Provided "as is", without warranty.
+Retain the original copyright and MIT permission notice. Provided "as is", without warranty.
 
 *Source data is fully synthetic and does not represent any real company.*

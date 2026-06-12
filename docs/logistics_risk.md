@@ -111,11 +111,8 @@ df.describe()
 ## License
 
 Source dataset licensed under the **[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)**.
-
-- **Hackathon use: ✅ allowed** — including commercial use and modification.
-- **Requirements:** retain the copyright and license notice (and any `NOTICE` file shipped
-  with the dataset), and **state the changes you made** — here, the CSV was converted into a
-  TuringDB graph. Includes an express patent grant. Provided "as is", without warranty.
+Retain the copyright and license notice (and any `NOTICE` file) and state the changes made.
+Provided "as is", without warranty.
 
 *Source data is provided for analytics/modeling; values represent synthetic supply-chain
 instances.*
