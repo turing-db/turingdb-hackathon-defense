@@ -1,4 +1,4 @@
-# Supply Chain Risk & Performance — TuringDB Graph
+# Supply Chain Risk & Performance - TuringDB Graph
 
 A graph view of the **Supply Chain Risk and Performance Indicators** dataset: 113,097
 logistics instances enriched with operational metrics (inventory, shipping cost, lead time,
@@ -47,17 +47,17 @@ label are pulled out into shared nodes.
 ```
 
 Because each `Supplier` resolves to a single `Product` and `Country`, a shipment reaches its
-product and country with one extra hop through the supplier — no redundant direct edges.
+product and country with one extra hop through the supplier - no redundant direct edges.
 
 ## What it enables
 
-- **Risk by geography / product** — traverse `RiskClassification` → `Shipment` →
+- **Risk by geography / product** - traverse `RiskClassification` → `Shipment` →
   `Supplier` → `Country`/`Product` to see where high-risk instances concentrate.
-- **Supplier reliability vs. outcomes** — compare `supplier_reliability_score`,
+- **Supplier reliability vs. outcomes** - compare `supplier_reliability_score`,
   `delay_probability`, and `delivery_time_deviation` across a supplier's shipments.
-- **Country risk profiles** — aggregate route risk, customs clearance, and disruption
+- **Country risk profiles** - aggregate route risk, customs clearance, and disruption
   likelihood per country.
-- **Predictive-model feature pulls** — the `Shipment` nodes carry a ready-made feature
+- **Predictive-model feature pulls** - the `Shipment` nodes carry a ready-made feature
   vector with the `risk_classification` target one hop away.
 
 ## Risk distribution

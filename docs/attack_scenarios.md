@@ -1,7 +1,7 @@
-# Cyber Attack Scenarios — TuringDB Graph
+# Cyber Attack Scenarios - TuringDB Graph
 
-A **cyber attack knowledge base** as a graph: thousands of documented attack scenarios —
-each with a description, step-by-step playbook, impact, detection method, and remediation —
+A **cyber attack knowledge base** as a graph: thousands of documented attack scenarios -
+each with a description, step-by-step playbook, impact, detection method, and remediation -
 linked to the **MITRE ATT&CK techniques** they use, the **tools** involved, and a topical
 **category**.
 
@@ -39,13 +39,13 @@ link graph.
 
 ## What it enables
 
-- **Attack playbooks & triage** — pull a full scenario (steps, impact, detection, fix) for any
+- **Attack playbooks & triage** - pull a full scenario (steps, impact, detection, fix) for any
   attack type, filterable by `Category` or `attack_type`.
-- **MITRE ATT&CK mapping** — pivot from a technique (`T####`) to every attack that uses it, or
+- **MITRE ATT&CK mapping** - pivot from a technique (`T####`) to every attack that uses it, or
   profile an attack's technique coverage.
-- **Tooling intelligence** — rank tools by how many attacks reference them (`mentions`), or find
+- **Tooling intelligence** - rank tools by how many attacks reference them (`mentions`), or find
   which attacks rely on a given tool (e.g. Burp Suite, Wireshark, sqlmap).
-- **Defensive coverage analysis** — group by category/technique to see where detections and
+- **Defensive coverage analysis** - group by category/technique to see where detections and
   remediations are documented vs. sparse.
 
 ## Quick start

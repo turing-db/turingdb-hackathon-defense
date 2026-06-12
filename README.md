@@ -1,21 +1,21 @@
-<img src="assets/banner.png" alt="TuringDB × EDTH — Datasets, example use cases and setup guide for TuringDB" width="100%">
+<img src="assets/banner.png" alt="TuringDB × EDTH - Datasets, example use cases and setup guide for TuringDB" width="100%">
 
-# TuringDB × EDTH Hackathon — Ready-to-Use Datasets & Use Cases
+# TuringDB × EDTH Hackathon - Ready-to-Use Datasets & Use Cases
 
 A ready-to-run pack of **graph datasets for the EDTH hackathon**, built on
 [**TuringDB**](https://turing.bio). Clone this repo, point a TuringDB server at it, and you
-have six domain graphs — supply chain, logistics risk, drone-swarm telemetry, global power
-infrastructure, POLE crime investigation, and a cyber attack-scenario knowledge base —
+have six domain graphs - supply chain, logistics risk, drone-swarm telemetry, global power
+infrastructure, POLE crime investigation, and a cyber attack-scenario knowledge base -
 loadable and queryable in seconds, plus a browser visualizer.
 
 No data wrangling required: the graphs are **pre-built** and committed under [`graphs/`](graphs/).
 Per-dataset documentation (schema, example queries, licensing) lives in [`docs/`](docs/).
 
 > [!IMPORTANT]
-> **These are just example datasets — you are not required to build on them.** They exist to
+> **These are just example datasets - you are not required to build on them.** They exist to
 > get you querying in seconds, not to constrain your project. **Bring your own data**: take any
 > **CSV or JSONL** file, turn it into a TuringDB graph with a short import script, and build on
-> that instead. Mix the provided graphs with your own, or ignore these entirely — whatever fits
+> that instead. Mix the provided graphs with your own, or ignore these entirely - whatever fits
 > your hack. See the [`turingdb` Claude Code skills](#claude-code-skills) (or the
 > [Python SDK docs](https://docs.turingdb.ai/pythonsdk/reference)) for how to load your own
 > CSV/JSONL into a graph.
@@ -26,25 +26,25 @@ Per-dataset documentation (schema, example queries, licensing) lives in [`docs/`
 
 TuringDB is a **high-performance, in-memory, column-oriented graph database engine** designed
 for analytical and read-intensive workloads. Built from scratch in C++, it delivers
-**millisecond query latency on graphs with millions of nodes and edges** — commonly **~200×
+**millisecond query latency on graphs with millions of nodes and edges** - commonly **~200×
 faster than Neo4j** on deep multi-hop queries.
 
 ### Key features
 
-- **[Performance-first architecture](https://docs.turingdb.ai/concepts/columnar_storage)** —
+- **[Performance-first architecture](https://docs.turingdb.ai/concepts/columnar_storage)** -
   in-memory, column-oriented storage with streaming query processing; 0.1–50 ms latency on
   10M+ node graphs, [~200× faster than Neo4j](https://docs.turingdb.ai/benchmarks/results-summary)
   on deep multi-hop queries.
-- **[Zero-lock concurrency](https://docs.turingdb.ai/concepts/zero_locking)** — reads and writes
+- **[Zero-lock concurrency](https://docs.turingdb.ai/concepts/zero_locking)** - reads and writes
   never compete; every transaction runs on its own immutable
   [snapshot](https://docs.turingdb.ai/concepts/snapshots) (snapshot isolation).
-- **[Git-like versioning](https://docs.turingdb.ai/concepts/versioning_system)** — commit graph
+- **[Git-like versioning](https://docs.turingdb.ai/concepts/versioning_system)** - commit graph
   versions, branch, merge, and time-travel through history for reproducibility and auditability.
-- **Developer friendly** — [OpenCypher](https://docs.turingdb.ai/query/cypher_subset) query
+- **Developer friendly** - [OpenCypher](https://docs.turingdb.ai/query/cypher_subset) query
   language and a [Python SDK](https://docs.turingdb.ai/pythonsdk/reference) whose `query()`
   returns a pandas DataFrame, plus an HTTP server (`:6666`) and browser visualizer (`:8080`).
 
-Each graph is a self-contained, versioned store (commits, dataparts) under `graphs/<name>/` —
+Each graph is a self-contained, versioned store (commits, dataparts) under `graphs/<name>/` -
 which is exactly what this repo ships.
 
 ---
@@ -66,19 +66,19 @@ which is exactly what this repo ships.
 
 These graphs are picked for **defense, resilience, and intelligence** scenarios:
 
-- **Supply-chain resilience** (`supply_chain`, `logistics_risk`) — trace a delayed purchase
+- **Supply-chain resilience** (`supply_chain`, `logistics_risk`) - trace a delayed purchase
   order or a quality defect back through the part to every affected site; find where high-risk
   shipments concentrate by supplier, product, and country; quantify supplier reliability
   (on-time-in-full) and single-source risk.
-- **Critical-infrastructure mapping** (`power_plants`) — map generation capacity by country
+- **Critical-infrastructure mapping** (`power_plants`) - map generation capacity by country
   and fuel; identify ownership concentration and fuel-dependency for energy-security analysis.
-- **Autonomous-systems / ISR** (`drone_swarm`) — reconstruct each drone's trajectory over
+- **Autonomous-systems / ISR** (`drone_swarm`) - reconstruct each drone's trajectory over
   time, correlate collision warnings with formation and mission, and snapshot the full swarm
   state at any instant.
-- **Criminal-network / investigation analysis** (`poledb`) — map associates through `KNOWS`
+- **Criminal-network / investigation analysis** (`poledb`) - map associates through `KNOWS`
   and family links, trace crimes to their location, investigating officer, suspects and
   vehicles, and reconstruct phone-call patterns across a person's contacts.
-- **Attack knowledge base & ATT&CK mapping** (`attack_scenarios`) — pull full attack playbooks
+- **Attack knowledge base & ATT&CK mapping** (`attack_scenarios`) - pull full attack playbooks
   (steps, impact, detection, remediation), pivot from a MITRE ATT&CK technique to every attack
   that uses it, and rank the tools attackers rely on most.
 
@@ -88,7 +88,7 @@ Each dataset's doc lists concrete starter queries.
 
 ## Prerequisites
 
-1. **TuringDB server** — the `turingdb` CLI on your `PATH`.
+1. **TuringDB server** - the `turingdb` CLI on your `PATH`.
 2. **Python SDK** (for querying):
    ```bash
    pip install turingdb
@@ -110,10 +110,10 @@ cd turingdb-hackathon-defense
 turingdb start -turing-dir "$(pwd)" -ui -ui-port 8080
 ```
 
-- **`:6666`** — database (HTTP API used by the SDK)
-- **`:8080`** — open <http://localhost:8080> for the interactive visualizer
+- **`:6666`** - database (HTTP API used by the SDK)
+- **`:8080`** - open <http://localhost:8080> for the interactive visualizer
 
-> The server recreates its runtime dirs (`data/`, `logs/`, lock/socket) on first start — those
+> The server recreates its runtime dirs (`data/`, `logs/`, lock/socket) on first start - those
 > are git-ignored. Only the `graphs/` store is versioned here.
 
 ### 2. Query from Python
@@ -140,14 +140,14 @@ print(df)
 ### 3. Explore in the visualizer
 
 Open <http://localhost:8080>, choose a graph, and run the default
-`MATCH (n) RETURN n LIMIT 100` to see a slice — then click nodes to expand neighbours.
+`MATCH (n) RETURN n LIMIT 100` to see a slice - then click nodes to expand neighbours.
 
 ---
 
 ## Claude Code skills
 
 This repo bundles the [**TuringDB Claude Code skills**](https://github.com/turing-db/turingdb-skills)
-under [`skills/turingdb/`](skills/turingdb) — they teach Claude Code how to start, query, write,
+under [`skills/turingdb/`](skills/turingdb) - they teach Claude Code how to start, query, write,
 and manage TuringDB graphs (including the Cypher dialect's quirks), so you can drive these
 datasets in plain English instead of memorizing the SDK.
 
@@ -171,7 +171,7 @@ Then start a Claude Code session and type `/turingdb` followed by what you want 
 
 | File | Covers |
 |------|--------|
-| `SKILL.md` | Entry point — routes to the right reference for your task |
+| `SKILL.md` | Entry point - routes to the right reference for your task |
 | `startup.md` | Install the package, start the server, connect, load a graph |
 | `querying.md` | `MATCH`, `WHERE`, joins, ordering, functions |
 | `writing.md` | `CREATE`, `SET`, and the change/commit workflow |
@@ -209,7 +209,7 @@ turingdb-hackathon-defense/
 
 ## Licensing
 
-Each dataset retains its **original source license** — see the "License" section in each
+Each dataset retains its **original source license** - see the "License" section in each
 doc. Summary:
 
 | Graph | Source license |

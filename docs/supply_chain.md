@@ -1,4 +1,4 @@
-# Aerospace Supply Chain — TuringDB Graph
+# Aerospace Supply Chain - TuringDB Graph
 
 A graph view of a synthetic but business-realistic **aerospace industrial supply chain**
 (Tier-1 manufacturer / MRO context): low-volume, high-value parts, long and variable
@@ -52,7 +52,7 @@ FROM_SUPPLIER             FOR_PART
 
 Graph traversal makes supplier-centric questions cheap: supplier reliability (OTIF via
 PO promised vs. receipt dates), lead-time variability, supplier risk concentration, and
-quality incident rates per supplier/part/site — and tracing a quality issue or delayed PO
+quality incident rates per supplier/part/site - and tracing a quality issue or delayed PO
 back through the part to every affected site.
 
 ## Quick start

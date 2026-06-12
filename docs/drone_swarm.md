@@ -1,4 +1,4 @@
-# Drone Swarm Coordination — TuringDB Graph
+# Drone Swarm Coordination - TuringDB Graph
 
 A graph view of a **synthetic drone-swarm coordination** dataset: 20 drones tracked across
 1,000 timesteps (20,000 telemetry readings), each capturing 3D position, velocity, battery,
@@ -50,13 +50,13 @@ Per-reading numeric telemetry lives **on the `Reading` node**; identifiers and t
 
 ## What it enables
 
-- **Trajectory traversal** — follow a drone's `NEXT` chain to reconstruct its flight path,
+- **Trajectory traversal** - follow a drone's `NEXT` chain to reconstruct its flight path,
   battery decay, or signal profile over time.
-- **Collision analysis** — find `collision_warning = 1` readings and pivot to the formation,
+- **Collision analysis** - find `collision_warning = 1` readings and pivot to the formation,
   mission, drone, and timestep where they occur.
-- **Formation / mission breakdowns** — how readings (and warnings) distribute across the
+- **Formation / mission breakdowns** - how readings (and warnings) distribute across the
   four formations and four mission types.
-- **Cross-drone snapshots** — all readings sharing a `TimeStep` give the swarm's full state
+- **Cross-drone snapshots** - all readings sharing a `TimeStep` give the swarm's full state
   at one instant.
 
 ## Quick start

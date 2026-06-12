@@ -1,4 +1,4 @@
-# POLE Crime Investigation — TuringDB Graph
+# POLE Crime Investigation - TuringDB Graph
 
 A **POLE** (Person · Object · Location · Event) crime-investigation graph: a UK-style
 policing dataset linking people, their contact details and associates, crimes and the
@@ -17,12 +17,12 @@ officers investigating them, vehicles, phone-call records, and geocoded location
 | `PostCode` | 14,196 | `code` | `code` |
 | `Officer` | 1,000 | `badge_no` | `badge_no`, `rank`, `name`, `surname` |
 | `Vehicle` | 1,000 | `reg` | `make`, `model`, `reg`, `year` |
-| `PhoneCall` | 534 | — | `call_date`, `call_time`, `call_duration`, `call_type` (`CALL`/`SMS`) |
+| `PhoneCall` | 534 | - | `call_date`, `call_time`, `call_duration`, `call_type` (`CALL`/`SMS`) |
 | `Person` | 369 | `nhs_no` | `nhs_no`, `surname`, `name`, `age` |
 | `Phone` | 328 | `phoneNo` | `phoneNo` |
 | `Email` | 328 | `email_address` | `email_address` |
 | `Area` | 93 | `areaCode` | `areaCode` |
-| `Object` | 7 | — | `description`, `type` (e.g. seized `Evidence`) |
+| `Object` | 7 | - | `description`, `type` (e.g. seized `Evidence`) |
 
 ### Edges (105,840)
 
@@ -43,7 +43,7 @@ officers investigating them, vehicles, phone-call records, and geocoded location
 | `KNOWS_SN` | `Person` → `Person` | 241 | Linked via social network |
 | `FAMILY_REL` | `Person` → `Person` | 155 | Family relationship |
 | `KNOWS_PHONE` | `Person` → `Person` | 118 | Linked via phone contact |
-| `KNOWS_LW` | `Person` → `Person` | 80 | Linked — lives with |
+| `KNOWS_LW` | `Person` → `Person` | 80 | Linked - lives with |
 | `PARTY_TO` | `Person` → `Crime` | 55 | Person is a party to a crime |
 
 ### Shape
@@ -61,13 +61,13 @@ officers investigating them, vehicles, phone-call records, and geocoded location
 
 ## What it enables
 
-- **Link / association analysis** — traverse `KNOWS`, `FAMILY_REL`, and shared phones/addresses
+- **Link / association analysis** - traverse `KNOWS`, `FAMILY_REL`, and shared phones/addresses
   to map a person's network and find indirect connections between suspects.
-- **Crime-to-people-to-assets investigation** — go from a `Crime` to its location, investigating
+- **Crime-to-people-to-assets investigation** - go from a `Crime` to its location, investigating
   officer, the people `PARTY_TO` it, and any `Vehicle` `INVOLVED_IN` it.
-- **Communications intelligence** — reconstruct call/SMS patterns over `PhoneCall` → `Phone`,
+- **Communications intelligence** - reconstruct call/SMS patterns over `PhoneCall` → `Phone`,
   tying call records back to the people who own the numbers.
-- **Geographic crime mapping** — every `Location` carries lat/long and rolls up through
+- **Geographic crime mapping** - every `Location` carries lat/long and rolls up through
   `PostCode` → `Area` for hotspot and area-level analysis.
 
 ## Quick start

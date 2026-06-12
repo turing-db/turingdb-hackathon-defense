@@ -1,4 +1,4 @@
-# Global Power Plant Database — TuringDB Graph
+# Global Power Plant Database - TuringDB Graph
 
 A graph view of the **Global Power Plant Database** (WRI, v1.3.0): ~34,900 power plants
 worldwide with location, capacity, primary/secondary fuels, owner, and reported/estimated
@@ -40,10 +40,10 @@ human-readable country / fuel / owner name.
 
 ## What it enables
 
-- **Energy-security mapping** — generation capacity by country and fuel; fuel-mix and
+- **Energy-security mapping** - generation capacity by country and fuel; fuel-mix and
   import/fuel-dependency profiles per country.
-- **Ownership concentration** — which owners control the most capacity, and where.
-- **Critical-infrastructure geolocation** — every plant carries lat/long for spatial joins.
+- **Ownership concentration** - which owners control the most capacity, and where.
+- **Critical-infrastructure geolocation** - every plant carries lat/long for spatial joins.
 
 ## Quick start
 
@@ -70,5 +70,5 @@ c.query("MATCH (p:PowerPlant)-[:OWNED_BY]->(o:Owner) WHERE o.name = 'EDF' RETURN
 
 ## License
 
-Source data: Global Power Plant Database, World Resources Institute —
+Source data: Global Power Plant Database, World Resources Institute -
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Retain attribution to WRI.
