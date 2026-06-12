@@ -1,3 +1,5 @@
+<img src="assets/banner.png" alt="TuringDB × EDTH — Datasets, example use cases and setup guide for TuringDB" width="100%">
+
 # TuringDB × EDTH Hackathon — Ready-to-Use Datasets & Use Cases
 
 A ready-to-run pack of **graph datasets for the EDTH hackathon**, built on
