@@ -4,9 +4,9 @@
 
 A ready-to-run pack of **graph datasets for the EDTH hackathon**, built on
 [**TuringDB**](https://turing.bio). Clone this repo, point a TuringDB server at it, and you
-have six domain graphs — supply chain, logistics risk, drone-swarm telemetry, global power
-infrastructure, cybersecurity attacks, and POLE crime investigation — loadable and queryable
-in seconds, plus a browser visualizer.
+have seven domain graphs — supply chain, logistics risk, drone-swarm telemetry, global power
+infrastructure, cybersecurity attacks, POLE crime investigation, and a cyber attack-scenario
+knowledge base — loadable and queryable in seconds, plus a browser visualizer.
 
 No data wrangling required: the graphs are **pre-built** and committed under [`graphs/`](graphs/).
 Per-dataset documentation (schema, example queries, licensing) lives in [`docs/`](docs/).
@@ -50,6 +50,7 @@ which is exactly what this repo ships.
 | `power_plants` | Global power infrastructure (plants, fuels, owners, countries) | 45,262 | 93,052 | [docs/power_plants.md](docs/power_plants.md) |
 | `cyber_attacks` | Network intrusion / threat detection (attack events, protocols, severity, geo) | 48,741 | 280,000 | [docs/cyber_attacks.md](docs/cyber_attacks.md) |
 | `poledb` | POLE crime investigation (people, associates, crimes, officers, vehicles, phone calls, locations) | 61,521 | 105,840 | [docs/poledb.md](docs/poledb.md) |
+| `attack_scenarios` | Cyber attack knowledge base (scenarios → MITRE ATT&CK techniques, tools, categories) | 18,354 | 60,014 | [docs/attack_scenarios.md](docs/attack_scenarios.md) |
 
 ---
 
@@ -72,6 +73,9 @@ These graphs are picked for **defense, resilience, and intelligence** scenarios:
 - **Criminal-network / investigation analysis** (`poledb`) — map associates through `KNOWS`
   and family links, trace crimes to their location, investigating officer, suspects and
   vehicles, and reconstruct phone-call patterns across a person's contacts.
+- **Attack knowledge base & ATT&CK mapping** (`attack_scenarios`) — pull full attack playbooks
+  (steps, impact, detection, remediation), pivot from a MITRE ATT&CK technique to every attack
+  that uses it, and rank the tools attackers rely on most.
 
 Each dataset's doc lists concrete starter queries.
 
@@ -184,14 +188,16 @@ turingdb-hackathon-defense/
 │   ├── drone_swarm/
 │   ├── power_plants/
 │   ├── cyber_attacks/
-│   └── poledb/
+│   ├── poledb/
+│   └── attack_scenarios/
 ├── docs/                ← per-dataset schema, queries, and licensing
 │   ├── supply_chain.md
 │   ├── logistics_risk.md
 │   ├── drone_swarm.md
 │   ├── power_plants.md
 │   ├── cyber_attacks.md
-│   └── poledb.md
+│   ├── poledb.md
+│   └── attack_scenarios.md
 └── skills/              ← TuringDB Claude Code skills (/turingdb)
     └── turingdb/
 ```
@@ -211,6 +217,7 @@ doc. Summary:
 | `power_plants` | CC BY 4.0 (WRI Global Power Plant Database) |
 | `cyber_attacks` | Apache-2.0 |
 | `poledb` | OGL v3.0 (UK open police data; synthetic personal entities) |
+| `attack_scenarios` | MITRE ATT&CK Terms of Use / OWASP (attribution required) |
 
 When redistributing, retain the relevant attribution/notice and indicate that the data was
 converted into a TuringDB graph.
