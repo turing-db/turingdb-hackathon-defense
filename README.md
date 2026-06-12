@@ -19,32 +19,32 @@ faster than Neo4j** on deep multi-hop queries.
 
 ### Key features
 
-**Performance-first architecture**
-- 0.1–50 ms query latency for analytical queries on 10M+ node graphs
-- Column-oriented architecture with streaming query processing — nodes and edges are
-  processed in chunks for efficiency
-- In-memory graph storage with efficient memory representations
-
-**Zero-lock concurrency**
-- Reads and writes never compete — analytical queries run without locking from writes
-- Massive parallelism for dashboards, AI pipelines, and batch processing
-- Each transaction executes on its own immutable snapshot, guaranteeing snapshot isolation
-
-**The first git-like versioning system for graphs**
-- Create and commit graph versions, maintain branches, merge changes, and time-travel
-  through history
-- Perfect for reproducibility, auditability, and regulatory compliance
-- Immutable snapshots ensure data integrity
-
-**Developer friendly**
-- OpenCypher query language
-- Python SDK with a comprehensive API — `query()` returns a **pandas DataFrame**, so you go
-  from graph traversal to analytics/plotting/ML features in one line
-- HTTP server + browser visualizer — the server speaks HTTP on `:6666`; an interactive graph
-  visualizer runs on `:8080`
+- **[Performance-first architecture](https://docs.turingdb.ai/concepts/columnar_storage)** —
+  in-memory, column-oriented storage with streaming query processing; 0.1–50 ms latency on
+  10M+ node graphs, [~200× faster than Neo4j](https://docs.turingdb.ai/benchmarks/results-summary)
+  on deep multi-hop queries.
+- **[Zero-lock concurrency](https://docs.turingdb.ai/concepts/zero_locking)** — reads and writes
+  never compete; every transaction runs on its own immutable
+  [snapshot](https://docs.turingdb.ai/concepts/snapshots) (snapshot isolation).
+- **[Git-like versioning](https://docs.turingdb.ai/concepts/versioning_system)** — commit graph
+  versions, branch, merge, and time-travel through history for reproducibility and auditability.
+- **Developer friendly** — [OpenCypher](https://docs.turingdb.ai/query/cypher_subset) query
+  language and a [Python SDK](https://docs.turingdb.ai/pythonsdk/reference) whose `query()`
+  returns a pandas DataFrame, plus an HTTP server (`:6666`) and browser visualizer (`:8080`).
 
 Each graph is a self-contained, versioned store (commits, dataparts) under `graphs/<name>/` —
 which is exactly what this repo ships.
+
+---
+
+## Dataset catalog
+
+| Graph | Domain | Nodes | Edges | Docs |
+|---|---|--:|--:|---|
+| `supply_chain` | Aerospace / defense supply chain (parts, suppliers, POs, quality incidents) | 30,380 | 90,402 | [docs/supply_chain.md](docs/supply_chain.md) |
+| `logistics_risk` | Supply-chain **risk** & performance indicators (shipments, suppliers, countries, risk class) | 117,718 | 233,242 | [docs/logistics_risk.md](docs/logistics_risk.md) |
+| `drone_swarm` | Drone-swarm coordination telemetry (positions, battery, formation, mission, trajectories) | 21,028 | 99,980 | [docs/drone_swarm.md](docs/drone_swarm.md) |
+| `power_plants` | Global power infrastructure (plants, fuels, owners, countries) | 45,262 | 93,052 | [docs/power_plants.md](docs/power_plants.md) |
 
 ---
 
@@ -53,7 +53,7 @@ which is exactly what this repo ships.
 1. **TuringDB server** — the `turingdb` CLI on your `PATH`.
 2. **Python SDK** (for querying):
    ```bash
-   pip install turingdb pandas
+   pip install turingdb
    ```
 
 ---
@@ -103,17 +103,6 @@ print(df)
 
 Open <http://localhost:8080>, choose a graph, and run the default
 `MATCH (n) RETURN n LIMIT 100` to see a slice — then click nodes to expand neighbours.
-
----
-
-## Dataset catalog
-
-| Graph | Domain | Nodes | Edges | Docs |
-|---|---|--:|--:|---|
-| `supply_chain` | Aerospace / defense supply chain (parts, suppliers, POs, quality incidents) | 30,380 | 90,402 | [docs/supply_chain.md](docs/supply_chain.md) |
-| `logistics_risk` | Supply-chain **risk** & performance indicators (shipments, suppliers, countries, risk class) | 117,718 | 233,242 | [docs/logistics_risk.md](docs/logistics_risk.md) |
-| `drone_swarm` | Drone-swarm coordination telemetry (positions, battery, formation, mission, trajectories) | 21,028 | 99,980 | [docs/drone_swarm.md](docs/drone_swarm.md) |
-| `power_plants` | Global power infrastructure (plants, fuels, owners, countries) | 45,262 | 93,052 | [docs/power_plants.md](docs/power_plants.md) |
 
 ---
 
