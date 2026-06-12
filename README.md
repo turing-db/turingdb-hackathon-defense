@@ -11,6 +11,15 @@ loadable and queryable in seconds, plus a browser visualizer.
 No data wrangling required: the graphs are **pre-built** and committed under [`graphs/`](graphs/).
 Per-dataset documentation (schema, example queries, licensing) lives in [`docs/`](docs/).
 
+> [!IMPORTANT]
+> **These are just example datasets — you are not required to build on them.** They exist to
+> get you querying in seconds, not to constrain your project. **Bring your own data**: take any
+> **CSV or JSONL** file, turn it into a TuringDB graph with a short import script, and build on
+> that instead. Mix the provided graphs with your own, or ignore these entirely — whatever fits
+> your hack. See the [`turingdb` Claude Code skills](#claude-code-skills) (or the
+> [Python SDK docs](https://docs.turingdb.ai/pythonsdk/reference)) for how to load your own
+> CSV/JSONL into a graph.
+
 ---
 
 ## What is TuringDB?
