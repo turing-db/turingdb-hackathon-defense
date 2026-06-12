@@ -48,6 +48,24 @@ which is exactly what this repo ships.
 
 ---
 
+## Example use cases
+
+These graphs are picked for **defense, resilience, and intelligence** scenarios:
+
+- **Supply-chain resilience** (`supply_chain`, `logistics_risk`) — trace a delayed purchase
+  order or a quality defect back through the part to every affected site; find where high-risk
+  shipments concentrate by supplier, product, and country; quantify supplier reliability
+  (on-time-in-full) and single-source risk.
+- **Critical-infrastructure mapping** (`power_plants`) — map generation capacity by country
+  and fuel; identify ownership concentration and fuel-dependency for energy-security analysis.
+- **Autonomous-systems / ISR** (`drone_swarm`) — reconstruct each drone's trajectory over
+  time, correlate collision warnings with formation and mission, and snapshot the full swarm
+  state at any instant.
+
+Each dataset's doc lists concrete starter queries.
+
+---
+
 ## Prerequisites
 
 1. **TuringDB server** — the `turingdb` CLI on your `PATH`.
@@ -110,8 +128,8 @@ Open <http://localhost:8080>, choose a graph, and run the default
 
 This repo bundles the [**TuringDB Claude Code skills**](https://github.com/turing-db/turingdb-skills)
 under [`skills/turingdb/`](skills/turingdb) — they teach Claude Code how to start, query, write,
-and manage TuringDB graphs (including the Cypher gotchas below), so you can drive these datasets
-in plain English instead of memorizing the SDK.
+and manage TuringDB graphs (including the Cypher dialect's quirks), so you can drive these
+datasets in plain English instead of memorizing the SDK.
 
 Install with the skills CLI:
 
@@ -140,45 +158,6 @@ Then start a Claude Code session and type `/turingdb` followed by what you want 
 | `algorithms.md` | Shortest path (Dijkstra), vector/embedding search |
 | `introspection.md` | Explore schema, versioning, time travel, SDK reference |
 | `parquet.md` | Import Parquet files via the `turing-parquet` CLI |
-
----
-
-## Example use cases
-
-These graphs are picked for **defense, resilience, and intelligence** scenarios:
-
-- **Supply-chain resilience** (`supply_chain`, `logistics_risk`) — trace a delayed purchase
-  order or a quality defect back through the part to every affected site; find where high-risk
-  shipments concentrate by supplier, product, and country; quantify supplier reliability
-  (on-time-in-full) and single-source risk.
-- **Critical-infrastructure mapping** (`power_plants`) — map generation capacity by country
-  and fuel; identify ownership concentration and fuel-dependency for energy-security analysis.
-- **Autonomous-systems / ISR** (`drone_swarm`) — reconstruct each drone's trajectory over
-  time, correlate collision warnings with formation and mission, and snapshot the full swarm
-  state at any instant.
-
-Each dataset's doc lists concrete starter queries.
-
----
-
-## Query gotchas
-
-TuringDB's Cypher dialect is powerful but has a few limits worth knowing up front (they apply
-across all graphs here):
-
-- **Count edges with the arrow** — `MATCH ()-[r]->() RETURN count(r)`. The undirected form
-  `()-[r]-()` traverses each edge from both ends and **double-counts**.
-- **No `WITH` / no grouped aggregation (yet).** `RETURN co.name, count(s)` does **not** group
-  by `co.name` — `count()` returns one global total repeated on every row. Pull the rows and
-  aggregate in pandas instead:
-  ```python
-  df = c.query("MATCH (s:Shipment)-[:CLASSIFIED_AS]->(r:RiskClassification) RETURN r.name AS risk")
-  df["risk"].value_counts()
-  ```
-- **No `ORDER BY count(...)`.** Sort the resulting DataFrame in pandas (`.sort_values(...)`).
-- **Always `set_graph(...)`** before querying, or you'll hit the empty `default` graph.
-- **`name` display property** — every node carries a human-readable `name` used as its caption
-  in the visualizer.
 
 ---
 
