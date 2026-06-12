@@ -84,20 +84,6 @@ df = c.query("""
 df["formation"].value_counts()
 ```
 
-## Query gotchas (important)
-
-- **No `WITH` and no grouped aggregation.** `RETURN f.name, count(r)` does **not** group by
-  `f.name` — `count()` returns one global total repeated on every row. Aggregate in pandas:
-  ```python
-  df = c.query("MATCH (r:Reading)-[:IN_FORMATION]->(f:FormationPattern) RETURN f.name AS formation")
-  df["formation"].value_counts()
-  ```
-- **No `ORDER BY count(...)`.** Sort in pandas (`.value_counts()` / `.sort_values(...)`).
-- **Count edges with the arrow** `()-[r]->()`. The undirected form `()-[r]-()` double-counts.
-- **Trajectory order** comes from the `NEXT` edges (built time-ordered per drone), not from
-  scan order — traverse `NEXT` rather than relying on row order.
-- Always `set_graph("drone_swarm")` before querying, or you'll hit the `default` graph.
-
 ## License
 
 Source dataset licensed under **[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)**.

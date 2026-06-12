@@ -95,19 +95,6 @@ df = c.query("""
 df.describe()
 ```
 
-## Query gotchas (important)
-
-- **No `WITH` and no grouped aggregation.** `RETURN co.name, count(s)` does **not** group by
-  `co.name` — `count()` returns one global total repeated on every row. Do grouped counts in
-  pandas instead:
-  ```python
-  df = c.query("MATCH (s:Shipment)-[:CLASSIFIED_AS]->(r:RiskClassification) RETURN r.name AS risk")
-  df["risk"].value_counts()
-  ```
-- **No `ORDER BY count(...)`.** Aggregate-sort in pandas (`.value_counts()` / `.sort_values(...)`).
-- **Count edges with the arrow** `()-[r]->()`. The undirected form `()-[r]-()` double-counts.
-- Always `set_graph("logistics_risk")` before querying, or you'll hit the `default` graph.
-
 ## License
 
 Source dataset licensed under the **[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)**.

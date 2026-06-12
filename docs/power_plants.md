@@ -68,16 +68,6 @@ c.query("""
 c.query("MATCH (p:PowerPlant)-[:OWNED_BY]->(o:Owner) WHERE o.name = 'EDF' RETURN p.name, p.capacity_mw")
 ```
 
-## Notes & gotchas
-
-- **Count edges with the arrow** `()-[r]->()`. The undirected form double-counts.
-- **Grouped aggregation is limited** — `count(x)` grouped by a neighbour property does not
-  group correctly in this engine version (it returns the global total per row). Pull the rows
-  and aggregate in pandas instead.
-- Always `set_graph("power_plants")` before querying, or you'll hit the `default` graph.
-- Stray/malformed CSV rows are filtered: fuel values are validated against the 15 known
-  categories, so column-shift artifacts don't create junk `Fuel` nodes.
-
 ## License
 
 Source data: Global Power Plant Database, World Resources Institute —

@@ -80,14 +80,6 @@ df = c.query("MATCH (qi:QualityIncident)-[:FROM_SUPPLIER]->(s:Supplier) RETURN s
 df["supplier"].value_counts()
 ```
 
-## Notes & gotchas
-
-- **Count edges with the arrow** `()-[r]->()`. The undirected form `()-[r]-()` traverses
-  each edge from both ends and double-counts (you'd see 180,804 instead of 90,402).
-- **Sort/aggregate in pandas, not Cypher** — TuringDB doesn't support grouped aggregation or
-  `ORDER BY count(...)` yet. Return the rows and use `.value_counts()` / `.sort_values(...)`.
-- Always `set_graph("supply_chain")` before querying, or you'll hit the `default` graph.
-
 ## License
 
 Source dataset licensed under the **[MIT License](https://opensource.org/license/mit)**.
