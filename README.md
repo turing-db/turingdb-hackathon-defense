@@ -217,7 +217,7 @@ doc. Summary:
 | `power_plants` | CC BY 4.0 (WRI Global Power Plant Database) |
 | `cyber_attacks` | Apache-2.0 |
 | `poledb` | OGL v3.0 (UK open police data; synthetic personal entities) |
-| `attack_scenarios` | MITRE ATT&CK Terms of Use / OWASP (attribution required) |
+| `attack_scenarios` | MIT |
 
 When redistributing, retain the relevant attribution/notice and indicate that the data was
 converted into a TuringDB graph.

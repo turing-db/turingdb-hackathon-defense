@@ -81,7 +81,5 @@ c.query("""
 
 ## License
 
-Compiled from public security knowledge bases — notably **MITRE ATT&CK**
-([MITRE ATT&CK Terms of Use](https://attack.mitre.org/resources/legal-and-branding/terms-of-use/),
-free to use with attribution) and **OWASP** materials. Technique IDs and names are © The MITRE
-Corporation. Retain MITRE/OWASP attribution and indicate the data was converted into a TuringDB graph.
+Released under the **MIT License**. MITRE ATT&CK technique IDs/names referenced in the data
+remain © The MITRE Corporation. Indicate the data was converted into a TuringDB graph.
