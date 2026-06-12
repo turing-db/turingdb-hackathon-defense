@@ -106,6 +106,43 @@ Open <http://localhost:8080>, choose a graph, and run the default
 
 ---
 
+## Claude Code skills
+
+This repo bundles the [**TuringDB Claude Code skills**](https://github.com/turing-db/turingdb-skills)
+under [`skills/turingdb/`](skills/turingdb) — they teach Claude Code how to start, query, write,
+and manage TuringDB graphs (including the Cypher gotchas below), so you can drive these datasets
+in plain English instead of memorizing the SDK.
+
+Install with the skills CLI:
+
+```bash
+npx skills add https://github.com/turing-db/turingdb-skills
+```
+
+…or copy the bundled folder straight into your Claude Code skills directory:
+
+```bash
+cp -r skills/turingdb ~/.claude/skills/
+```
+
+Then start a Claude Code session and type `/turingdb` followed by what you want to do, e.g.:
+
+- `/turingdb start the server at $(pwd) and load power_plants`
+- `/turingdb query the highest-capacity plants in the USA with their fuel`
+- `/turingdb find which suppliers have the most quality incidents in supply_chain`
+
+| File | Covers |
+|------|--------|
+| `SKILL.md` | Entry point — routes to the right reference for your task |
+| `startup.md` | Install the package, start the server, connect, load a graph |
+| `querying.md` | `MATCH`, `WHERE`, joins, ordering, functions |
+| `writing.md` | `CREATE`, `SET`, and the change/commit workflow |
+| `algorithms.md` | Shortest path (Dijkstra), vector/embedding search |
+| `introspection.md` | Explore schema, versioning, time travel, SDK reference |
+| `parquet.md` | Import Parquet files via the `turing-parquet` CLI |
+
+---
+
 ## Example use cases
 
 These graphs are picked for **defense, resilience, and intelligence** scenarios:
@@ -156,11 +193,13 @@ turingdb-hackathon-defense/
 │   ├── logistics_risk/
 │   ├── drone_swarm/
 │   └── power_plants/
-└── docs/                ← per-dataset schema, queries, and licensing
-    ├── supply_chain.md
-    ├── logistics_risk.md
-    ├── drone_swarm.md
-    └── power_plants.md
+├── docs/                ← per-dataset schema, queries, and licensing
+│   ├── supply_chain.md
+│   ├── logistics_risk.md
+│   ├── drone_swarm.md
+│   └── power_plants.md
+└── skills/              ← TuringDB Claude Code skills (/turingdb)
+    └── turingdb/
 ```
 
 ---
